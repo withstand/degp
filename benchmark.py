@@ -18,7 +18,6 @@ This module provides a set of benchmark problems for global optimization.
 import os
 
 import numpy
-import numpy as np
 
 from numpy import abs, arange, arctan2, asarray, atleast_1d, cos, exp, floor, inf, log, ones, log10
 from numpy import pi, prod, roll, seterr, sign, sin, sqrt, sum, where, zeros, zeros_like, tan, tanh
@@ -81,10 +80,12 @@ class Benchmark(object):
         return self.__class__.__name__
     
     def __call__(self, x, *args):
-        return self.evaluator(np.array(x), args)
-
-    def evaluator(self, x, *args):
-        pass
+        """ 
+        b = Benchmark(...)
+        Use b as a function : b(x)
+        Make x to numpy.array automatically in case call it with list or tuple
+        """
+        return self.evaluator(asarray(x), args)
     
     def generator(self):
         """The generator function for the benchmark problem."""
@@ -187,7 +188,7 @@ class Benchmark(object):
         if set_title:
             ax.set_title(name + ' Test Function', fontweight='bold')
 
-        out_folder = os.path.join(os.getcwd(), 'docs', 'figures')
+        out_folder = os.path.join(os.getcwd(), 'figures_output')
         if not os.path.isdir(out_folder):
             os.makedirs(out_folder)
 
@@ -3289,7 +3290,7 @@ class LennardJones(Benchmark):
                   -32.765970, -37.967600, -44.326801, -47.845157, -52.322627, -56.815742, -61.317995,
                   -66.530949, -72.659782, -77.1777043]
 
-        k = dimensions/3    
+        k = dimensions // 3    
         self.fglob = minima[k-2]
         self.change_dimensionality = True
     

@@ -1,10 +1,10 @@
 //#include "Python.h"
 #ifdef _DEBUG
   #undef _DEBUG
-  #include <python.h>
+  #include <Python.h>
   #define _DEBUG
 #else
-  #include <python.h>
+  #include <Python.h>
 #endif
 #include "src/cec15_test_func.h"
 
@@ -66,7 +66,7 @@ static PyMethodDef cec2015_methods[] = {
 static struct PyModuleDef cec2015module = {
    PyModuleDef_HEAD_INIT,
    "cec2015",   /* name of module */
-   "cec2015 module without any functions", /* module documentation, may be NULL */
+   "cec2015 expensive contest test functions", /* module documentation, may be NULL */
    -1,       /* size of per-interpreter state of the module,
                 or -1 if the module keeps state in global variables. */
    cec2015_methods
