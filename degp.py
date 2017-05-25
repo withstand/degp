@@ -202,9 +202,14 @@ if __name__ == "__main__":
     for f in fcs:
         results[str(f)]=[]
         for i in range(run):
-            np.random.seed(run_seed[fcs.index(f)][i])
-            print('Optimize ', str(f), ' Run ', i, ' Seed:', run_seed[fcs.index(f)][i])
-            ret = optimize_gp(f, disp=False)
-            results[str(f)].append(ret)
-            print(ret['bestx'], ret['besty'])
+            try:
+                np.random.seed(run_seed[fcs.index(f)][i])
+                print('Optimize ', str(f), ' Run ', i, ' Seed:', run_seed[fcs.index(f)][i])
+                ret = optimize_gp(f, disp=False)
+                results[str(f)].append(ret)
+                print(ret['bestx'], ret['besty'])
+            except Exception as e:
+                print('Error optimize ', str(f), ':', e)
+        np.save(str(f), results[str(f)])
+                
             
